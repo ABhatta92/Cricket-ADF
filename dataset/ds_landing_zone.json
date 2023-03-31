@@ -2,15 +2,15 @@
 	"name": "ds_landing_zone",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "ls_landing_zone",
+			"referenceName": "ls_adls",
 			"type": "LinkedServiceReference"
 		},
 		"annotations": [],
 		"type": "Json",
 		"typeProperties": {
 			"location": {
-				"type": "AzureBlobStorageLocation",
-				"container": "landingzone"
+				"type": "AzureBlobFSLocation",
+				"fileSystem": "landingzone"
 			}
 		},
 		"schema": {}
