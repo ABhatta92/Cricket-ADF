@@ -7,9 +7,17 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "cricket-adf"
 		},
+		"ls_adls_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'ls_adls'"
+		},
 		"ls_landing_zone_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'ls_landing_zone'"
+		},
+		"ls_adls_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://cricketadls.dfs.core.windows.net/"
 		},
 		"ls_cricksheet_download_properties_typeProperties_url": {
 			"type": "string",
@@ -20,6 +28,23 @@
 		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
 	},
 	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/ls_adls')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('ls_adls_properties_typeProperties_url')]",
+					"accountKey": {
+						"type": "SecureString",
+						"value": "[parameters('ls_adls_accountKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
 		{
 			"name": "[concat(parameters('factoryName'), '/ls_cricksheet_download')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
@@ -47,6 +72,30 @@
 				}
 			},
 			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ds_adls_raw')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_adls",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"folderPath": "import",
+						"fileSystem": "raw"
+					}
+				},
+				"schema": {}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_adls')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/ds_http')]",
@@ -81,21 +130,25 @@
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"linkedServiceName": {
-					"referenceName": "ls_landing_zone",
+					"referenceName": "ls_adls",
 					"type": "LinkedServiceReference"
 				},
 				"annotations": [],
 				"type": "Json",
 				"typeProperties": {
 					"location": {
-						"type": "AzureBlobStorageLocation",
-						"container": "landingzone"
+						"type": "AzureBlobFSLocation",
+						"fileSystem": "landingzone"
+					},
+					"compression": {
+						"type": "ZipDeflate",
+						"level": "Optimal"
 					}
 				},
 				"schema": {}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/ls_landing_zone')]"
+				"[concat(variables('factoryId'), '/linkedServices/ls_adls')]"
 			]
 		},
 		{
@@ -133,7 +186,7 @@
 							"sink": {
 								"type": "JsonSink",
 								"storeSettings": {
-									"type": "AzureBlobStorageWriteSettings",
+									"type": "AzureBlobFSWriteSettings",
 									"copyBehavior": "FlattenHierarchy"
 								},
 								"formatSettings": {
