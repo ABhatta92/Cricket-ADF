@@ -56,7 +56,8 @@
 								"formatSettings": {
 									"type": "JsonReadSettings",
 									"compressionProperties": {
-										"type": "ZipDeflateReadSettings"
+										"type": "ZipDeflateReadSettings",
+										"preserveZipFileNameAsFolder": false
 									}
 								}
 							},
@@ -140,7 +141,7 @@
 					},
 					"compression": {
 						"type": "ZipDeflate",
-						"level": "Optimal"
+						"level": "Fastest"
 					}
 				},
 				"schema": {}
