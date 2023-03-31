@@ -4,7 +4,7 @@
 		"annotations": [],
 		"type": "HttpServer",
 		"typeProperties": {
-			"url": "https://cricsheet.org/downloads/ipl_male_json.zip",
+			"url": "https://cricsheet.org/downloads/",
 			"enableServerCertificateValidation": true,
 			"authenticationType": "Anonymous"
 		}
