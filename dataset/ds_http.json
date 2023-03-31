@@ -11,6 +11,10 @@
 			"location": {
 				"type": "HttpServerLocation",
 				"relativeUrl": "ipl_male_json.zip"
+			},
+			"compression": {
+				"type": "ZipDeflate",
+				"level": "Fastest"
 			}
 		},
 		"schema": {}
