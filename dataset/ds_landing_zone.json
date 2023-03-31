@@ -11,10 +11,6 @@
 			"location": {
 				"type": "AzureBlobFSLocation",
 				"fileSystem": "landingzone"
-			},
-			"compression": {
-				"type": "ZipDeflate",
-				"level": "Optimal"
 			}
 		},
 		"schema": {}
