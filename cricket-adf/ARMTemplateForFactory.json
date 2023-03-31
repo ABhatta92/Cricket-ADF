@@ -63,8 +63,7 @@
 							"sink": {
 								"type": "JsonSink",
 								"storeSettings": {
-									"type": "AzureBlobFSWriteSettings",
-									"copyBehavior": "FlattenHierarchy"
+									"type": "AzureBlobFSWriteSettings"
 								},
 								"formatSettings": {
 									"type": "JsonWriteSettings"
@@ -165,10 +164,6 @@
 					"location": {
 						"type": "AzureBlobFSLocation",
 						"fileSystem": "landingzone"
-					},
-					"compression": {
-						"type": "ZipDeflate",
-						"level": "Optimal"
 					}
 				},
 				"schema": {}
