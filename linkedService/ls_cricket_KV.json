@@ -1,0 +1,10 @@
+{
+	"name": "ls_cricket_KV",
+	"properties": {
+		"annotations": [],
+		"type": "AzureKeyVault",
+		"typeProperties": {
+			"baseUrl": "https://Cricket-KV.vault.azure.net/"
+		}
+	}
+}
