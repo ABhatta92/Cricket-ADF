@@ -205,6 +205,64 @@
 								"parameters": {}
 							}
 						]
+					},
+					{
+						"name": "Landing Zone to Raw",
+						"type": "Copy",
+						"dependsOn": [
+							{
+								"activity": "HTTP to Landing Zone",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "JsonSource",
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true,
+									"wildcardFileName": "*.json",
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "JsonReadSettings"
+								}
+							},
+							"sink": {
+								"type": "JsonSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "JsonWriteSettings"
+								}
+							},
+							"enableStaging": false
+						},
+						"inputs": [
+							{
+								"referenceName": "ds_landing_zone",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ds_adls_raw",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
 					}
 				],
 				"policy": {
@@ -215,7 +273,8 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/ds_http')]",
-				"[concat(variables('factoryId'), '/datasets/ds_landing_zone')]"
+				"[concat(variables('factoryId'), '/datasets/ds_landing_zone')]",
+				"[concat(variables('factoryId'), '/datasets/ds_adls_raw')]"
 			]
 		}
 	]
