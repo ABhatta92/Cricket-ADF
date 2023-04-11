@@ -8,11 +8,17 @@
 		"ls_adls_accountKey": {
 			"value": ""
 		},
+		"ls_cricket_databricks_accessToken": {
+			"value": ""
+		},
 		"ls_landing_zone_connectionString": {
 			"value": ""
 		},
 		"ls_adls_properties_typeProperties_url": {
 			"value": "https://cricketadls.dfs.core.windows.net/"
+		},
+		"ls_cricket_KV_properties_typeProperties_baseUrl": {
+			"value": "https://Cricket-KV.vault.azure.net/"
 		},
 		"ls_cricksheet_download_properties_typeProperties_url": {
 			"value": "https://cricsheet.org/downloads/"
