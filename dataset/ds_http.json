@@ -10,7 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "HttpServerLocation",
-				"relativeUrl": "ipl_male_json.zip"
+				"relativeUrl": "ipl_male_csv2.zip"
 			},
 			"compression": {
 				"type": "ZipDeflate",
