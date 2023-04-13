@@ -309,6 +309,114 @@
 								"parameters": {}
 							}
 						]
+					},
+					{
+						"name": "Mount Storage",
+						"type": "DatabricksNotebook",
+						"dependsOn": [
+							{
+								"activity": "Landing Zone to Raw",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"notebookPath": "/IPL/mount_storage"
+						},
+						"linkedServiceName": {
+							"referenceName": "ls_cricket_databricks",
+							"type": "LinkedServiceReference"
+						}
+					},
+					{
+						"name": "Create DBs",
+						"type": "DatabricksNotebook",
+						"dependsOn": [
+							{
+								"activity": "Mount Storage",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"notebookPath": "/IPL/create_dbs"
+						},
+						"linkedServiceName": {
+							"referenceName": "ls_cricket_databricks",
+							"type": "LinkedServiceReference"
+						}
+					},
+					{
+						"name": "Raw to Processed",
+						"type": "DatabricksNotebook",
+						"dependsOn": [
+							{
+								"activity": "Create DBs",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"notebookPath": "/IPL/raw_to_processed"
+						},
+						"linkedServiceName": {
+							"referenceName": "ls_cricket_databricks",
+							"type": "LinkedServiceReference"
+						}
+					},
+					{
+						"name": "Processed to Presentation",
+						"type": "DatabricksNotebook",
+						"dependsOn": [
+							{
+								"activity": "Raw to Processed",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"notebookPath": "/IPL/processed_to_presentation"
+						},
+						"linkedServiceName": {
+							"referenceName": "ls_cricket_databricks",
+							"type": "LinkedServiceReference"
+						}
 					}
 				],
 				"policy": {
@@ -320,7 +428,8 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/ds_http')]",
 				"[concat(variables('factoryId'), '/datasets/ds_landing_zone')]",
-				"[concat(variables('factoryId'), '/datasets/ds_adls_raw')]"
+				"[concat(variables('factoryId'), '/datasets/ds_adls_raw')]",
+				"[concat(variables('factoryId'), '/linkedServices/ls_cricket_databricks')]"
 			]
 		}
 	]
