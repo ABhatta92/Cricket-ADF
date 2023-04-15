@@ -11,6 +11,9 @@
 		"ls_cricket_databricks_accessToken": {
 			"value": ""
 		},
+		"ls_cricket_db_connectionString": {
+			"value": ""
+		},
 		"ls_landing_zone_connectionString": {
 			"value": ""
 		},

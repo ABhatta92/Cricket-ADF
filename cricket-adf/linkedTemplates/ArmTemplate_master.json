@@ -15,6 +15,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'accessToken' of 'ls_cricket_databricks'"
 		},
+		"ls_cricket_db_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'ls_cricket_db'"
+		},
 		"ls_landing_zone_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'ls_landing_zone'"
@@ -63,6 +67,9 @@
 					},
 					"ls_cricket_databricks_accessToken": {
 						"value": "[parameters('ls_cricket_databricks_accessToken')]"
+					},
+					"ls_cricket_db_connectionString": {
+						"value": "[parameters('ls_cricket_db_connectionString')]"
 					},
 					"ls_landing_zone_connectionString": {
 						"value": "[parameters('ls_landing_zone_connectionString')]"
