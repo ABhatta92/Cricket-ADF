@@ -1,5 +1,5 @@
 {
-	"name": "ingest_zip_file",
+	"name": "ipl_data_pipeline",
 	"properties": {
 		"activities": [
 			{
